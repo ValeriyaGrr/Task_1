@@ -95,14 +95,19 @@ public class BurgerTest {
 
         String receipt = burger.getReceipt();
 
-        assertTrue(receipt.contains(bun.getName()));
+        String expected = String.format(
+                "(==== %s ====)%n" +
+                        "= sauce %s =%n" +
+                        "= filling %s =%n" +
+                        "(==== %s ====)%n%n" +
+                        "Price: %f%n",
+                bun.getName(),
+                ingredient1.getName(),
+                ingredient2.getName(),
+                bun.getName(),
+                burger.getPrice()
+        );
 
-        assertTrue(receipt.contains("sauce"));
-        assertTrue(receipt.contains("Соус Spicy-X"));
-        assertTrue(receipt.contains("filling"));
-        assertTrue(receipt.contains("Мясо бессмертных моллюсков Protostomia"));
-
-        String expectedPrice = String.format("%f", burger.getPrice());
-        assertTrue(receipt.contains(expectedPrice));
+        assertEquals(expected, receipt);
     }
 }
